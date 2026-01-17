@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pangkat Dalawa - Unofficial Seal Database</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: slideDown 0.8s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #ffd700, #ffab00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .title {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            font-style: italic;
+        }
+        
+        /* Login Card */
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #ffd700, #ffab00, #ffd700);
+        }
+        
+        .card-title {
+            color: #0d47a1;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            color: #ffab00;
+        }
+        
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0d47a1;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #1976d2;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 5px;
+        }
+        
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #0d47a1, #1976d2);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(to right, #1976d2, #0d47a1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(13, 71, 161, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #757575;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #616161;
+            transform: translateY(-2px);
+        }
+        
+        /* Links */
+        .links {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .link {
+            color: #1976d2;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        .link:hover {
+            color: #0d47a1;
+            text-decoration: underline;
+        }
+        
+        /* Messages */
+        .alert {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .alert-danger {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #c62828;
+        }
+        
+        .alert-success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .status-item i {
+            color: #ffd700;
+        }
+        
+        #memberCount {
+            font-weight: 600;
+            color: #ffd700;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+        }
+        
+        /* Form Switching */
+        .form-container {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .form-hidden {
+            display: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 30px 20px;
+            }
+            
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .logo-text {
+                font-size: 2rem;
+            }
+            
+            .title {
+                font-size: 1.4rem;
+            }
+            
+            .card-title {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Shake Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .shake {
+            animation: shake 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <span class="logo-text">PD</span>
+            </div>
+            <h1 class="title">Pangkat Dalawa System</h1>
+            <p class="subtitle">Unofficial Seal Database Management</p>
+        </div>
+        
+        <!-- Login Card -->
+        <div class="login-card">
+            <!-- Login Form -->
+            <form id="loginForm" class="form-container">
+                <h3 class="card-title">
+                    <i class="fas fa-sign-in-alt"></i> Database Login
+                </h3>
+                
+                <div class="form-group">
+                    <label for="loginUsername">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" 
+                           id="loginUsername" 
+                           placeholder="Enter your username"
+                           autocomplete="username"
+                           required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <div class="password-container">
+                        <input type="password" 
+                               id="loginPassword" 
+                               placeholder="Enter your password"
+                               autocomplete="current-password"
+                               required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-database"></i> Connect to Database
+                </button>
+                
+                <div class="links">
+                    <a href="#" class="link" onclick="showRegister()">
+                        <i class="fas fa-user-plus"></i> Register New Account
+                    </a>
+                    <a href="#" class="link" onclick="showForgot()">
+                        <i class="fas fa-key"></i> Forgot Password?
+                    </a>
+                </div>
+                
+                <div class="alert alert-danger" id="loginError"></div>
+                <div class="alert alert-success" id="loginSuccess"></div>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="registerForm" class="form-container form-hidden">
+                <h3 class="card-title">
+                    <i class="fas fa-user-plus"></i> New Account
+                </h3>
+                
+                <div class="form-group">
+                    <label for="regUsername">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" 
+                           id="regUsername" 
+                           placeholder="Choose a username"
+                           required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fullName">
+                        <i class="fas fa-id-card"></i> Full Name
+                    </label>
+                    <input type="text" 
+                           id="fullName" 
+                           placeholder="Enter your full name"
+                           required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPassword">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <div class="password-container">
+                        <input type="password" 
+                               id="regPassword" 
+                               placeholder="Create a password"
+                               required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('regPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <small style="color: #666; font-size: 0.85rem;">Minimum 6 characters</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        <i class="fas fa-lock"></i> Confirm Password
+                    </label>
+                    <div class="password-container">
+                        <input type="password" 
+                               id="confirmPassword" 
+                               placeholder="Confirm password"
+                               required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-check"></i> Create Account
+                </button>
+                
+                <div class="links">
+                    <a href="#" class="link" onclick="showLogin()">
+                        <i class="fas fa-arrow-left"></i> Back to Login
+                    </a>
+                </div>
+                
+                <div class="alert alert-danger" id="registerError"></div>
+                <div class="alert alert-success" id="registerSuccess"></div>
+            </form>
+            
+            <!-- Forgot Password -->
+            <div id="forgotPanel" class="form-container form-hidden">
+                <h3 class="card-title">
+                    <i class="fas fa-key"></i> Password Recovery
+                </h3>
+                
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 3rem; color: #1976d2; margin-bottom: 20px;">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <p style="color: #666; margin-bottom: 20px; line-height: 1.6;">
+                        For security reasons, password recovery requires administrator assistance. 
+                        Please contact your system administrator to reset your password.
+                    </p>
+                    
+                    <div style="background: #f0f4ff; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: left;">
+                        <h4 style="color: #0d47a1; margin-bottom: 15px;">
+                            <i class="fas fa-user-shield"></i> Contact Administrator
+                        </h4>
+                        <p style="color: #444; margin-bottom: 10px;">
+                            <i class="fas fa-server" style="color: #1976d2; width: 20px;"></i>
+                            Server: <strong>127.0.0.1</strong>
+                        </p>
+                        <p style="color: #444; margin-bottom: 10px;">
+                            <i class="fas fa-database" style="color: #1976d2; width: 20px;"></i>
+                            Database: <strong>pangkat_dalawa</strong>
+                        </p>
+                    </div>
+                    
+                    <button class="btn btn-secondary" onclick="showLogin()">
+                        <i class="fas fa-arrow-left"></i> Back to Login
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <i class="fas fa-server"></i>
+                <span>127.0.0.1:3306</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-users"></i>
+                <span>Users: <span id="memberCount">0</span></span>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2024 Pangkat Dalawa System | MySQL Database Management</p>
+            <p style="font-size: 0.7rem; margin-top: 5px;">v1.0.0 | Server: 127.0.0.1</p>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is already logged in
+        (function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            if (currentUser.username) {
+                if (currentUser.role === 'admin') {
+                    window.location.href = 'adminpanel.html';
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
+            }
+        })();
+        
+        // API Configuration
+        const API_BASE_URL = 'http://127.0.0.1/pangkat-dalawa-system/api';
+        
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const forgotPanel = document.getElementById('forgotPanel');
+        const loginError = document.getElementById('loginError');
+        const loginSuccess = document.getElementById('loginSuccess');
+        const registerError = document.getElementById('registerError');
+        const registerSuccess = document.getElementById('registerSuccess');
+        const memberCount = document.getElementById('memberCount');
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set focus to username field
+            document.getElementById('loginUsername').focus();
+            
+            // Check database connection
+            checkDatabaseConnection();
+            
+            // Get user count
+            getUserCount();
+            
+            // Form submissions
+            loginForm.addEventListener('submit', handleLogin);
+            registerForm.addEventListener('submit', handleRegister);
+            
+            // Enter key navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    if (!loginForm.classList.contains('form-hidden')) {
+                        loginForm.dispatchEvent(new Event('submit'));
+                    } else if (!registerForm.classList.contains('form-hidden')) {
+                        registerForm.dispatchEvent(new Event('submit'));
+                    }
+                }
+            });
+        });
+        
+        // Show/Hide Forms
+        function showLogin() {
+            loginForm.classList.remove('form-hidden');
+            registerForm.classList.add('form-hidden');
+            forgotPanel.classList.add('form-hidden');
+            clearMessages();
+            document.getElementById('loginUsername').focus();
+        }
+        
+        function showRegister() {
+            loginForm.classList.add('form-hidden');
+            registerForm.classList.remove('form-hidden');
+            forgotPanel.classList.add('form-hidden');
+            clearMessages();
+            document.getElementById('regUsername').focus();
+        }
+        
+        function showForgot() {
+            loginForm.classList.add('form-hidden');
+            registerForm.classList.add('form-hidden');
+            forgotPanel.classList.remove('form-hidden');
+            clearMessages();
+        }
+        
+        // Toggle Password Visibility
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        }
+        
+        // Clear Messages
+        function clearMessages() {
+            loginError.style.display = 'none';
+            loginSuccess.style.display = 'none';
+            registerError.style.display = 'none';
+            registerSuccess.style.display = 'none';
+        }
+        
+        // Show Message
+        function showMessage(element, message, isSuccess = false) {
+            element.textContent = message;
+            element.style.display = 'block';
+            element.className = isSuccess ? 'alert alert-success' : 'alert alert-danger';
+            
+            if (!isSuccess) {
+                element.parentElement.classList.add('shake');
+                setTimeout(() => {
+                    element.parentElement.classList.remove('shake');
+                }, 500);
+            }
+        }
+        
+        // Check Database Connection
+        async function checkDatabaseConnection() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/test-connection.php`);
+                if (!response.ok) {
+                    throw new Error('Connection failed');
+                }
+                console.log('Database connection OK');
+            } catch (error) {
+                console.warn('Database connection test failed:', error);
+            }
+        }
+        
+        // Get User Count
+        async function getUserCount() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/users.php?action=count`);
+                if (response.ok) {
+                    const data = await response.json();
+                    memberCount.textContent = data.count || 0;
+                }
+            } catch (error) {
+                console.error('Failed to get user count:', error);
+            }
+        }
+        
+        // Handle Login
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!username || !password) {
+                showMessage(loginError, 'Please enter both username and password');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'login',
+                        username: username,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Store user data
+                    localStorage.setItem('currentUser', JSON.stringify(data.user));
+                    localStorage.setItem('lastLogin', new Date().toISOString());
+                    
+                    // Show success message
+                    showMessage(loginSuccess, `Welcome back, ${data.user.full_name}! Redirecting...`, true);
+                    
+                    // Redirect based on role
+                    setTimeout(() => {
+                        if (data.user.role === 'admin') {
+                            window.location.href = 'adminpanel.html';
+                        } else {
+                            window.location.href = 'dashboard.html';
+                        }
+                    }, 1500);
+                } else {
+                    showMessage(loginError, data.message || 'Invalid credentials');
+                }
+            } catch (error) {
+                showMessage(loginError, 'Connection error. Check XAMPP services on 127.0.0.1');
+            }
+        }
+        
+        // Handle Register
+        async function handleRegister(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('regUsername').value.trim();
+            const fullName = document.getElementById('fullName').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validation
+            if (!username || !fullName || !password || !confirmPassword) {
+                showMessage(registerError, 'Please fill all fields');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showMessage(registerError, 'Password must be at least 6 characters');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showMessage(registerError, 'Passwords do not match');
+                return;
+            }
+            
+            if (username.toLowerCase() === 'admin') {
+                showMessage(registerError, 'Cannot register as admin');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'register',
+                        username: username,
+                        password: password,
+                        full_name: fullName
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Show success
+                    showMessage(registerSuccess, 'Account created successfully! Redirecting to login...', true);
+                    
+                    // Clear form
+                    registerForm.reset();
+                    
+                    // Update user count
+                    getUserCount();
+                    
+                    // Redirect to login after delay
+                    setTimeout(() => {
+                        showLogin();
+                        document.getElementById('loginUsername').value = username;
+                        document.getElementById('loginUsername').focus();
+                    }, 2000);
+                } else {
+                    showMessage(registerError, data.message || 'Registration failed');
+                }
+            } catch (error) {
+                showMessage(registerError, 'Registration error. Check database connection');
+            }
+        }
+    </script>
+</body>
+</html>
